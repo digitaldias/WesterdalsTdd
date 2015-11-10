@@ -56,6 +56,7 @@ namespace Westerdals.Business.Managers.Tests
         {
             // Arrange
             RigReaderForReturningValidReading();
+            RigTheVerifierToPassAnyReading();
 
             // Act
             var result = Instance.GetPlantReading();
@@ -64,6 +65,10 @@ namespace Westerdals.Business.Managers.Tests
             result.Temperature.ShouldEqual(23.5);
         }
 
+        private void RigTheVerifierToPassAnyReading()
+        {
+            _verifierMock.Setup(o => o.IsValid(It.IsAny<PlantReading>())).Returns(true);
+        }
 
         [TestMethod]
         public void GetPlantReading_ReaderReturnsValue_ValidatorValidatesIt()

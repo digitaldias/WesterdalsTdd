@@ -26,10 +26,7 @@ namespace Westerdals.Business.Managers
         {
             var reading = _exceptionHandler.GetFromUnsafeMethod(() =>  _sensorReader.GetSensorData());
 
-            if (reading == null)
-                return PlantReading.Default;
-
-            if(_plantReadingsVerifier.IsValid(reading))
+            if(!_plantReadingsVerifier.IsValid(reading))
                 return PlantReading.Default;
 
             return reading;
